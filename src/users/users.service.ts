@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 
-const roundsOfHashing = +process.env.HASHING_ROUNDS || 10
+const roundsOfHashing = parseInt(process.env.HASHING_ROUNDS) || 10
 
 @Injectable()
 export class UsersService {
