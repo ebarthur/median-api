@@ -4,6 +4,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter'
 
+const PORT = +process.env.PORT || 3000
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
@@ -14,6 +16,7 @@ async function bootstrap() {
     .setTitle('Median')
     .setDescription('A blog API built with NestJS and Prisma')
     .setVersion('0.1')
+    .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, config)
@@ -22,6 +25,7 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost)
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
 
-  await app.listen(3000)
+  await app.listen(PORT)
+  console.log(`Application is running on: http://localhost:${PORT}`)
 }
 bootstrap()
