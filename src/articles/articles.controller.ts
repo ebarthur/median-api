@@ -21,7 +21,7 @@ export class ArticlesController {
  async findAll() {
     const articles = await this.articlesService.findAll();
 
-    return articles.map((article)=> new ArticleEntity(article));
+    return articles.map((article) => new ArticleEntity(article));
   }
 
   @ApiOkResponse({type: ArticleEntity, isArray: true})
