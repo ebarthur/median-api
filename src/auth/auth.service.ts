@@ -29,7 +29,7 @@ export class AuthService {
 
     // If password does not match, throw an error
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid  email/password')
+      throw new UnauthorizedException('Invalid  email or password')
     }
 
     // Step 3: Generate a JWT containing the user's ID and return it

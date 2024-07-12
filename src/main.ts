@@ -5,7 +5,14 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    logger: ['warn', 'log', 'error'],
+  })
+  app.enableCors({
+    origin: ['http://localhost:4001'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
